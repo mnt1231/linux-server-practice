@@ -1,4 +1,4 @@
-#Linux Server Practice
+## Linux Server Practice
 
 ## 概要
 Ubuntu環境上でWebサーバーを構築し、HTMLを配信する練習を行いました。
