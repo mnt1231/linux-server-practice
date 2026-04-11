@@ -3,6 +3,7 @@
 ## 概要
 Ubuntu環境上でWebサーバーを構築し、HTMLを配信する練習を行いました。  
 Pythonの簡易HTTPサーバーに加え、Nginxを用いたWebサーバーの公開も経験しました。
+アクセスログの取得、リアルタイムの監視も実施しました。
 
 ## 環境
 - OS: Ubuntu Server  
@@ -22,21 +23,34 @@ server-study/
 ## 実装内容
 
 1. Python HTTP サーバーでの配信  
-   `python3 -m http.server 8000` を使用してローカルでHTMLを確認  
+   `python3 -m http.server 8000` を使用してローカルでHTMLを確認
+   
+2. アクセスログの取得と監視  
+   - 標準出力をログファイルへリダイレクト  
+     ```bash
+     python3 -m http.server 8000 > ../logs/access.log 2>&1
+     ```
+   - 別ターミナルでリアルタイム監視  
+     ```bash
+     tail -f ~/server-study/linux/logs/access.log
+     ```
+   - HTTPステータスコード（200, 304, 404, 403）の挙動を確認
 
-2. NginxによるWebサーバー構築  
+3. NginxによるWebサーバー構築  
    - `/var/www/server-study/` に HTML を配置  
    - `/etc/nginx/sites-available/server-study` に設定ファイルを作成  
    - `sites-enabled` に symbolic link を作成して有効化  
    - 所有者と権限を Nginx ユーザー（www-data）に設定  
    - ブラウザで `http://localhost/` にアクセスし、`Hello Linux Server` の表示を確認  
 
-3. GitHubでの管理  
+2. GitHubでの管理  
    - コミット履歴によってサーバー構築の過程を可視化  
 
 ## 学んだこと
 - Linux環境での基本的なディレクトリ操作と権限設定  
-- Webサーバー（Python / Nginx）の基本的な仕組み  
+- Webサーバー（Python / Nginx）の基本的な仕組み
+- tailコマンドによるリアルタイムログ監視
+- HTTPステータスコード (200, 304, 404, 403) の理解  
 - GitHubを用いたコード・設定ファイルの管理  
 - SSH接続やサーバー設定手順の理解  
 - エラー発生時に自分で原因を調査し解決する力の重要性を実感  
@@ -49,9 +63,13 @@ server-study/
   → HTMLを `/var/www/server-study/` に移動し、設定を見直すことで解決  
 
 - ファイルとディレクトリの所有者・権限の設定が不十分でアクセス拒否が発生  
-  → `www-data` ユーザーに権限を付与して解決  
+  → `www-data` ユーザーに権限を付与して解決
+
+- ログが別のターミナルにしか出力されず、ファイルに保存できなかった
+  → リダイレクト (`>`, `2>&1`) の理解により解決
 
 ## 今後の課題
 - AWS（EC2）上でのサーバー構築  
 - Nginx を用いた実運用環境での公開  
 - HTTPS 設定やセキュリティの強化
+- ログ分析 (grepなどを用いたエラー検知)
