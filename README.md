@@ -4,6 +4,7 @@
 Ubuntu環境上でWebサーバーを構築し、HTMLを配信する練習を行いました。  
 Pythonの簡易HTTPサーバーに加え、Nginxを用いたWebサーバーの公開も経験しました。
 アクセスログの取得、リアルタイムの監視も実施しました。
+Ubuntu環境およびAWS EC2上でWebサーバーを構築し、HTMLを配信する練習を行いました。
 
 ## 環境
 - OS: Ubuntu Server  
@@ -55,6 +56,7 @@ server-study/
      sudo apt update
      sudo apt install nginx -y
      ```
+   - インターネット上からアクセス可能なWebサーバーを公開
    - `/var/www/html/index.nginx-debian.html` を編集しHTMLを変更  
    - ブラウザでパブリックIPにアクセスし、ページ表示を確認  
 
