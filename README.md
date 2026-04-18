@@ -51,15 +51,20 @@ server-study/
    ```
    存在しないURL（例: `/aaaaaaa.html`）にアクセスし、
    意図的に404エラーを発生させることで、error.logに記録されることを確認した。
+   実運用ではエラーのみを迅速に確認する必要があるため、この仕組みを導入した。
 
-4. NginxによるWebサーバー構築  
+5. NginxによるWebサーバー構築  
    - `/var/www/server-study/` に HTML を配置  
    - `/etc/nginx/sites-available/server-study` に設定ファイルを作成  
    - `sites-enabled` に symbolic link を作成して有効化  
    - 所有者と権限を Nginx ユーザー（www-data）に設定  
    - ブラウザで `http://localhost/` にアクセスし、`Hello Linux Server` の表示を確認
+   - 設定ファイル（linux/config/nginx-server-study.config）を作成し、サーバー設定を管理
+   - ドキュメントルート（/var/www/server-study）を指定
+   - indexファイルの設定
+   - try_filesディレクティブを用いて、存在しないパスへのアクセスを404として処理するよう設定
 
-5. AWS EC2上でのWebサーバー構築  
+6. AWS EC2上でのWebサーバー構築  
    - EC2インスタンス（Ubuntu）を作成  
    - セキュリティグループでSSH / HTTP / HTTPSを許可  
    - EC2 Instance Connectを用いてSSH接続  
@@ -72,7 +77,7 @@ server-study/
    - `/var/www/html/index.nginx-debian.html` を編集しHTMLを変更  
    - ブラウザでパブリックIPにアクセスし、ページ表示を確認  
 
-6. GitHubでの管理  
+7. GitHubでの管理  
    - コミット履歴によってサーバー構築の過程を可視化  
 
 ## 学んだこと
@@ -105,3 +110,4 @@ server-study/
 - AWS環境におけるWebサーバーの運用・改善
 - Nginx を用いた実運用環境での公開  
 - HTTPS 設定やセキュリティの強化
+- Nginxのアクセスログ・エラーログの分析
