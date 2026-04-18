@@ -62,7 +62,7 @@ server-study/
    - 設定ファイル（linux/config/nginx-server-study.config）を作成し、サーバー設定を管理
    - ドキュメントルート（/var/www/server-study）を指定
    - indexファイルの設定
-   - try_filesディレクティブを用いて、存在しないパスへのアクセスを404として処理するよう設定
+   - try_filesディレクティブにより、存在しないパスへのアクセス時に404を返すよう制御した
 
 6. AWS EC2上でのWebサーバー構築  
    - EC2インスタンス（Ubuntu）を作成  
